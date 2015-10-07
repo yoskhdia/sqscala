@@ -15,17 +15,5 @@ class SqsClient$Test extends Specification with ElasticMqContext {
       clientTry must beSuccessfulTry
       Try(clientTry.get.shutdown()) must beSuccessfulTry
     }
-
-    "queue operations" >> {
-      sequential
-
-      val client = ConfiguredSqsClient()
-
-      "create and get queue" in {
-        Try(client.queue(QueueName("test"), createIfNotExists = true)) must beSuccessfulTry
-      }
-
-      Try(client.shutdown()) must beSuccessfulTry
-    }
   }
 }

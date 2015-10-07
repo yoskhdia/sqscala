@@ -7,7 +7,7 @@ trait ElasticMqContext {
 }
 
 object ElasticMqContext {
-  // TODO: I know that should stop server. Now ElasticMQ server is started in JVM process, so it will be stopped after specification.
+  // TODO: I know that should stop server. But now ElasticMQ server is started in JVM process, so it will be stopped after specification.
   lazy val server = synchronized {
     SQSRestServerBuilder.withPort(9325).withInterface("localhost").start()
   }
