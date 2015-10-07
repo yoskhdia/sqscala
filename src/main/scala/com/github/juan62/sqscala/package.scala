@@ -1,7 +1,9 @@
+package com.github.juan62
+
 import java.nio.ByteBuffer
 
 import com.amazonaws.services.sqs.model.MessageAttributeValue
-import sqscala.serializer.StringSerializer
+import com.github.juan62.sqscala.serializer.StringSerializer
 
 package object sqscala {
 

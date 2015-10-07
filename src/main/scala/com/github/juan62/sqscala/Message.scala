@@ -1,4 +1,4 @@
-package sqscala
+package com.github.juan62.sqscala
 
 import com.amazonaws.services.sqs.model.MessageAttributeValue
 
