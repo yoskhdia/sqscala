@@ -5,7 +5,7 @@ import org.specs2.mutable.Specification
 
 import scala.util.Try
 
-class ConfiguredSqsClient$Test extends Specification {
+class ConfiguredSqsClient$Test extends Specification with ElasticMqContext {
 
   "ConfiguredSqsClient$Test" should {
     "legal configuration" >> {
@@ -13,7 +13,7 @@ class ConfiguredSqsClient$Test extends Specification {
         """
           |aws {
           |  sqs {
-          |    endpoint-url = "http://localhost:9324"
+          |    region = "ap-northeast-1"
           |
           |    max-retry = 1
           |    max-connections = 10
@@ -25,11 +25,15 @@ class ConfiguredSqsClient$Test extends Specification {
       val config = ConfigFactory.parseString(configString)
 
       "apply by config object" in {
-        Try(ConfiguredSqsClient(config)) must beSuccessfulTry
+        val clientTry = Try(ConfiguredSqsClient(config))
+        clientTry must beSuccessfulTry
+        Try(clientTry.get.shutdown()) must beSuccessfulTry
       }
 
       "apply by config file" in {
-        Try(ConfiguredSqsClient()) must beSuccessfulTry
+        val clientTry = Try(ConfiguredSqsClient())
+        clientTry must beSuccessfulTry
+        Try(clientTry.get.shutdown()) must beSuccessfulTry
       }
     }
 
