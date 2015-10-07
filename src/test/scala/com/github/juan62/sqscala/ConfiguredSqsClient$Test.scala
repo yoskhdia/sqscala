@@ -25,14 +25,36 @@ class ConfiguredSqsClient$Test extends Specification {
       val config = ConfigFactory.parseString(configString)
 
       "apply by config object" in {
-        val clientTry = Try(ConfiguredSqsClient(config))
-        clientTry must beSuccessfulTry
+        Try(ConfiguredSqsClient(config)) must beSuccessfulTry
       }
 
       "apply by config file" in {
-        val clientTry = Try(ConfiguredSqsClient())
-        clientTry must beSuccessfulTry
+        Try(ConfiguredSqsClient()) must beSuccessfulTry
       }
+    }
+
+    "illegal configuration" >> {
+      "configuration need either endpoint or region" in {
+        val configA = ConfigFactory.parseString(
+          """
+            |aws.sqs {
+            |  endpoint-url = "http://localhost:9324"
+            |  region = "ap-northeast-1"
+            |}
+          """.stripMargin
+        )
+        Try(ConfiguredSqsClient(configA)) must beFailedTry
+
+        val configB = ConfigFactory.parseString(
+          """
+            |aws.sqs {
+            |  # nothing
+            |}
+          """.stripMargin
+        )
+        Try(ConfiguredSqsClient(configB)) must beFailedTry
+      }
+
     }
   }
 }
