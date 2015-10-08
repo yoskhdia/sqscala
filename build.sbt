@@ -26,5 +26,6 @@ libraryDependencies ++= Seq(
   "com.amazonaws" % "aws-java-sdk-sqs" % "1.10.22",
   "com.typesafe" % "config" % "1.3.0",
   "org.specs2" %% "specs2-core" % specs2Version % "test",
-  "org.specs2" %% "specs2-mock" % specs2Version % "test"
+  "org.specs2" %% "specs2-mock" % specs2Version % "test",
+  "org.elasticmq" %% "elasticmq-rest-sqs" % "0.8.+" % "test"
 )

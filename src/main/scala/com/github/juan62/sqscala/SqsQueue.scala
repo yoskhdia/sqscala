@@ -1,8 +1,8 @@
-package sqscala
+package com.github.juan62.sqscala
 
 import com.amazonaws.handlers.AsyncHandler
 import com.amazonaws.services.sqs.model._
-import sqscala.serializer.MessageSerializer
+import com.github.juan62.sqscala.serializer.MessageSerializer
 
 import scala.collection.JavaConverters._
 import scala.concurrent.duration._
