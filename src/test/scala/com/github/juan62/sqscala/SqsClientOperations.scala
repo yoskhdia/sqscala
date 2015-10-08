@@ -1,5 +1,6 @@
 package com.github.juan62.sqscala
 
+import com.amazonaws.services.sqs.model.QueueDoesNotExistException
 import org.specs2.concurrent.ExecutionEnv
 import org.specs2.mutable.Specification
 import org.specs2.specification.BeforeAfterAll
@@ -27,4 +28,11 @@ class SqsClientOperations(specEnv: Env) extends Specification with ElasticMqCont
     client.createQueue(queueName) must be_==(unit).await
     client.deleteQueue(queueName) must be_==(unit).await
   }
+
+  "get queue is failed when queue is not created yet and createIfNotExists = false" in { implicit ee: ExecutionEnv =>
+    val queueName = QueueName("test3")
+    client.queue(queueName, createIfNotExists = false) must throwA[QueueDoesNotExistException]
+    client.queue(queueName) must throwA[QueueDoesNotExistException]
+  }
+
 }
