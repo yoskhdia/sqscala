@@ -1,4 +1,4 @@
-package sqscala.serializer
+package com.github.juan62.sqscala.serializer
 
 trait MessageSerializer[T] {
 

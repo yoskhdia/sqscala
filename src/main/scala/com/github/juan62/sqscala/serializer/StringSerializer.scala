@@ -1,4 +1,4 @@
-package sqscala.serializer
+package com.github.juan62.sqscala.serializer
 
 object StringSerializer extends MessageSerializer[String] {
   override def serialize(obj: String): String = obj

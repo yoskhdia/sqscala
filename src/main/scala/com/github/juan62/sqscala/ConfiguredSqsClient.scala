@@ -1,11 +1,11 @@
-package sqscala
+package com.github.juan62.sqscala
 
 import com.amazonaws.ClientConfiguration
 import com.amazonaws.regions.{Region, Regions}
 import com.amazonaws.retry.PredefinedRetryPolicies
 import com.amazonaws.services.sqs.AmazonSQSAsyncClient
 import com.typesafe.config.{Config, ConfigFactory}
-import sqscala.exception.ConfigurationNotFoundException
+import com.github.juan62.sqscala.exception.ConfigurationNotFoundException
 
 import scala.util.control.NonFatal
 
@@ -14,7 +14,9 @@ object ConfiguredSqsClient {
     apply(ConfigFactory.load())
   }
 
-  def apply(sqsConfiguration: Config): SqsClient = {
+  def apply(config: Config): SqsClient = {
+    val sqsConfiguration = config.readConfigOr("aws.sqs", throw new ConfigurationNotFoundException("aws.sqs configuration is not found."))
+
     val sdkClient = new AmazonSQSAsyncClient(sdkConfig(sqsConfiguration))
 
     val region = sqsConfiguration.readStringOption("region")
@@ -69,6 +71,14 @@ object ConfiguredSqsClient {
       wrapOption(path, config.getInt(path)).getOrElse(default)
     }
 
+    def readConfigOption(path: String): Option[Config] = {
+      wrapOption(path, config.getConfig(path))
+    }
+
+    def readConfigOr(path: String, default: => Config): Config = {
+      wrapOption(path, config.getConfig(path)).getOrElse(default)
+    }
+
     private def wrapOption[T](path: String, value: => T): Option[T] = {
       try {
         if (config.hasPathOrNull(path))
@@ -76,7 +86,7 @@ object ConfiguredSqsClient {
         else
           None
       } catch {
-        case NonFatal(e) => throw new ConfigurationNotFoundException(s"caught exception. path=$path", e)
+        case NonFatal(e) => throw new ConfigurationNotFoundException(s"caught exception. ${e.getMessage} path=$path", e)
       }
     }
   }
