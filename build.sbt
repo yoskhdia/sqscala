@@ -4,7 +4,7 @@ licenses +=("MIT", url("http://opensource.org/licenses/MIT"))
 
 name := "sqscala"
 
-version := "1.0"
+version := "1.0.0"
 
 scalaVersion := "2.11.7"
 

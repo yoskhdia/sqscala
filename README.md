@@ -1,5 +1,16 @@
 # sqscala
-simple AWS SQS client for Scala
+simple AWS SQS client for Scala.
+
+This library, has been inspired by [com.kifi.franz](https://github.com/kifi/franz).
+I like franz, but there are only a few of the configurations in order to create the AWS client.
+I wanted a more customizable interfaces.
+
+## Installation
+
+```
+resolvers += "jitpack" at "https://jitpack.io"
+libraryDependencies += "com.github.juan62" % "sqscala" % "1.0.0"
+```
 
 ## How to use
 
@@ -34,8 +45,8 @@ val client = ConfiguredSqsClient()
 ### 1b. prepare by code
 
 You can use SqsClient with credential provider and regions.
-Of course, you can instantiate AWS client directly, then put into SqsClient first argument.
-In many cases, you should only use regions pattern.
+In many cases, it is easy that you should use regions pattern.
+Of course, you can instantiate AWS client directly, and set SqsClient object to first argument.
 
 ```scala
 import com.amazonaws.regions.Regions
@@ -48,9 +59,9 @@ val client = SqsClient(regions = Regions.US_WEST_2)
 val client = SqsClient(credentialProvider = new YourCustomCredentialProvider())
 ```
 
-### 2. connect SQS via queue
+### 2. connect the SQS via queue
 
-Get queue object from SqsClient.
+Get a queue object from SqsClient.
 
 ```scala
 val queue = client.queue(QueueName("foo"))
@@ -58,12 +69,15 @@ val queue = client.queue(QueueName("foo"))
 val queue = client.queue(QueueName("foo"), createIfNotExists = true)
 ```
 
-SqsQueue needs MessageSerializer.
-MessageSerializer is used at serializing/deserializing SQS message body.
-(Message Body[String] <=> Any Type)
+SqsQueue requires MessageSerializer used to serialize/deserialize the SQS message body.
+(Message Body <=> Any Type)
+By default, sqscala has only a StringSerializer(Message Body <=> String).
+You can switch it on implicit parameter.
 
 ```scala
 import com.github.juan62.sqscala.Implicits.stringSerializer
+// or
+implicit val serializer = YourOriginalSerializer
 ```
 
 then you can use queue, like
@@ -92,12 +106,6 @@ queue.receive().onSuccess {
 
 ## Road map
 
-1. write test.
-2. support batch request.
-3. support queue attributes.
-4. support JSON serialization.
-
-## Contribute
-
-I know my english is childish...
-please help me with your knowledge.
+1. support batch request.
+2. support queue attributes.
+3. support JSON serialization.
