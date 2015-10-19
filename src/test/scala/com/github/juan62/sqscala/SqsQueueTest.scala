@@ -23,7 +23,7 @@ class SqsQueueTest extends Specification with ElasticMqContext with BeforeAfterA
       val message = "hello, sqs"
 
       // send
-      Try(queue.send(message)) must beSuccessfulTry
+      queue.send(message).map(Option(_)) must beSome[MessageId].await
       // receive
       val re = Await.result(queue.receive(), 20 seconds)
       re must beSome.like {
