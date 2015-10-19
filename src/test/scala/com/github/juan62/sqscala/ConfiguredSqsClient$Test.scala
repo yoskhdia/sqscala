@@ -31,7 +31,7 @@ class ConfiguredSqsClient$Test extends Specification with ElasticMqContext {
       }
 
       "apply by config file" in {
-        val clientTry = Try(ConfiguredSqsClient())
+        val clientTry = Try(ConfiguredSqsClient("aws.sqs"))
         clientTry must beSuccessfulTry
         Try(clientTry.get.shutdown()) must beSuccessfulTry
       }

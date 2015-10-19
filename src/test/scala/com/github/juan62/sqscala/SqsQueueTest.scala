@@ -12,7 +12,7 @@ class SqsQueueTest extends Specification with ElasticMqContext with BeforeAfterA
   private[this] var client: SqsClient = _
   private[this] lazy val queue: SqsQueue = client.queue(QueueName("test"), createIfNotExists = true)
 
-  override def beforeAll(): Unit = client = ConfiguredSqsClient()
+  override def beforeAll(): Unit = client = ConfiguredSqsClient("aws.sqs")
 
   override def afterAll(): Unit = client.shutdown()
 

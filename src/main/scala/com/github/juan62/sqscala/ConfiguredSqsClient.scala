@@ -11,7 +11,11 @@ import scala.util.control.NonFatal
 
 object ConfiguredSqsClient {
   def apply(): SqsClient = {
-    apply(ConfigFactory.load().readConfigOr("aws.sqs", throw new ConfigurationNotFoundException("aws.sqs configuration is not found.")))
+    apply(ConfigFactory.load())
+  }
+
+  def apply(path: String): SqsClient = {
+    apply(ConfigFactory.load().readConfigOr(path, throw new ConfigurationNotFoundException(s"configuration is not found. $path")))
   }
 
   def apply(sqsConfiguration: Config): SqsClient = {
