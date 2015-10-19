@@ -11,7 +11,7 @@ import scala.util.Try
 class SqsClientOperations(specEnv: Env) extends Specification with ElasticMqContext with BeforeAfterAll {
   private[this] var client: SqsClient = _
 
-  override def beforeAll(): Unit = client = ConfiguredSqsClient()
+  override def beforeAll(): Unit = client = ConfiguredSqsClient("aws.sqs")
 
   override def afterAll(): Unit = client.shutdown()
 

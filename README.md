@@ -109,3 +109,4 @@ queue.receive().onSuccess {
 1. support batch request.
 2. support queue attributes.
 3. support JSON serialization.
+4. support stream access.

@@ -14,9 +14,11 @@ object ConfiguredSqsClient {
     apply(ConfigFactory.load())
   }
 
-  def apply(config: Config): SqsClient = {
-    val sqsConfiguration = config.readConfigOr("aws.sqs", throw new ConfigurationNotFoundException("aws.sqs configuration is not found."))
+  def apply(path: String): SqsClient = {
+    apply(ConfigFactory.load().readConfigOr(path, throw new ConfigurationNotFoundException(s"configuration is not found. $path")))
+  }
 
+  def apply(sqsConfiguration: Config): SqsClient = {
     val sdkClient = new AmazonSQSAsyncClient(sdkConfig(sqsConfiguration))
 
     val region = sqsConfiguration.readStringOption("region")
