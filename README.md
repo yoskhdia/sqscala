@@ -19,19 +19,15 @@ libraryDependencies += "com.github.juan62" % "sqscala" % "1.0.1"
 put application.conf in your classpath(resources).
 
 ```conf
-aws {
-  sqs {
-    # endpoint-url or region
-    # If you want to connect to localhost, example 'endpoint-url="http://localhost:9324"'
-    # endpoint-url = null
-    region = "us-west-2"
+# endpoint-url or region
+# If you want to connect to localhost, example 'endpoint-url="http://localhost:9324"'
+# endpoint-url = null
+region = "us-west-2"
 
-    # max-retry = 3
-    # max-connections = 50
-    # connection-timeout-ms = 50000  # millis
-    # socket-timeout-ms = 50000      # millis
-  }
-}
+# max-retry = 3
+# max-connections = 50
+# connection-timeout-ms = 50000  # millis
+# socket-timeout-ms = 50000      # millis
 ```
 
 then your code, like
@@ -41,6 +37,9 @@ import com.github.juan62.sqscala._
 
 val client = ConfiguredSqsClient()
 ```
+
+of course, you can wrap with container(e.g. `aws.sqs { ... }`), then use `ConfiguredSqsClient("aws.sqs")`.
+
 
 ### 1b. prepare by code
 
