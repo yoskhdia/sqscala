@@ -11,12 +11,10 @@ import scala.util.control.NonFatal
 
 object ConfiguredSqsClient {
   def apply(): SqsClient = {
-    apply(ConfigFactory.load())
+    apply(ConfigFactory.load().readConfigOr("aws.sqs", throw new ConfigurationNotFoundException("aws.sqs configuration is not found.")))
   }
 
-  def apply(config: Config): SqsClient = {
-    val sqsConfiguration = config.readConfigOr("aws.sqs", throw new ConfigurationNotFoundException("aws.sqs configuration is not found."))
-
+  def apply(sqsConfiguration: Config): SqsClient = {
     val sdkClient = new AmazonSQSAsyncClient(sdkConfig(sqsConfiguration))
 
     val region = sqsConfiguration.readStringOption("region")
