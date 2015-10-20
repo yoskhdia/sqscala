@@ -9,7 +9,7 @@ I wanted a more customizable interfaces.
 
 ```
 resolvers += "jitpack" at "https://jitpack.io"
-libraryDependencies += "com.github.yoskhdia" % "sqscala" % "1.0.1"
+libraryDependencies += "com.github.yoskhdia" % "sqscala" % "1.0.2"
 ```
 
 ## How to use
