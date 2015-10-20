@@ -1,4 +1,4 @@
-package com.github.juan62.sqscala
+package com.github.yoskhdia.sqscala
 
 import com.amazonaws.auth.{AWSCredentialsProvider, DefaultAWSCredentialsProviderChain}
 import com.amazonaws.handlers.AsyncHandler

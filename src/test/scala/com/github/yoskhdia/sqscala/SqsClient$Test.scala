@@ -1,4 +1,4 @@
-package com.github.juan62.sqscala
+package com.github.yoskhdia.sqscala
 
 import org.specs2.mutable.Specification
 

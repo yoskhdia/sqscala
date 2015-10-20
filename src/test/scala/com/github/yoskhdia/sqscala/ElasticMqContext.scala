@@ -1,4 +1,4 @@
-package com.github.juan62.sqscala
+package com.github.yoskhdia.sqscala
 
 import org.elasticmq.NodeAddress
 import org.elasticmq.rest.sqs.SQSRestServerBuilder

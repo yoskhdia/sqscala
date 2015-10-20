@@ -1,4 +1,4 @@
-package com.github.juan62.sqscala
+package com.github.yoskhdia.sqscala
 
 import org.specs2.concurrent.ExecutionEnv
 import org.specs2.mutable.Specification
@@ -6,7 +6,6 @@ import org.specs2.specification.BeforeAfterAll
 
 import scala.concurrent.Await
 import scala.concurrent.duration._
-import scala.util.Try
 
 class SqsQueueTest extends Specification with ElasticMqContext with BeforeAfterAll {
   private[this] var client: SqsClient = _
@@ -18,7 +17,7 @@ class SqsQueueTest extends Specification with ElasticMqContext with BeforeAfterA
 
   "SqsQueueTest" should {
     "send -> receive -> delete message as string" in { implicit ee: ExecutionEnv =>
-      import com.github.juan62.sqscala.Implicits.stringSerializer
+      import com.github.yoskhdia.sqscala.Implicits.stringSerializer
 
       val message = "hello, sqs"
 
