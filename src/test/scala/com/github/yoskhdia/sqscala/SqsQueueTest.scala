@@ -17,7 +17,7 @@ class SqsQueueTest extends Specification with ElasticMqContext with BeforeAfterA
 
   "SqsQueueTest" should {
     "send -> receive -> delete message as string" in { implicit ee: ExecutionEnv =>
-      import Implicits.stringSerializer
+      import com.github.yoskhdia.sqscala.Implicits.stringSerializer
 
       val message = "hello, sqs"
 
