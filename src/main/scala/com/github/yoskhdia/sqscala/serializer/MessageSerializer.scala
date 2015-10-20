@@ -1,4 +1,4 @@
-package com.github.juan62.sqscala.serializer
+package com.github.yoskhdia.sqscala.serializer
 
 trait MessageSerializer[T] {
   type MessageBody = String

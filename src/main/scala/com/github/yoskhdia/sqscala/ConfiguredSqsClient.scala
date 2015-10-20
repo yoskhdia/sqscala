@@ -1,11 +1,11 @@
-package com.github.juan62.sqscala
+package com.github.yoskhdia.sqscala
 
 import com.amazonaws.ClientConfiguration
 import com.amazonaws.regions.{Region, Regions}
 import com.amazonaws.retry.PredefinedRetryPolicies
 import com.amazonaws.services.sqs.AmazonSQSAsyncClient
+import com.github.yoskhdia.sqscala.exception.ConfigurationNotFoundException
 import com.typesafe.config.{Config, ConfigFactory}
-import com.github.juan62.sqscala.exception.ConfigurationNotFoundException
 
 import scala.util.control.NonFatal
 

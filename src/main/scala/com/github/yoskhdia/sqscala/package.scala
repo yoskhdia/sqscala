@@ -1,9 +1,9 @@
-package com.github.juan62
+package com.github.yoskhdia
 
 import java.nio.ByteBuffer
 
 import com.amazonaws.services.sqs.model.MessageAttributeValue
-import com.github.juan62.sqscala.serializer.StringSerializer
+import com.github.yoskhdia.sqscala.serializer.StringSerializer
 
 package object sqscala {
 

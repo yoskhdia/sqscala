@@ -1,3 +1,3 @@
-package com.github.juan62.sqscala
+package com.github.yoskhdia.sqscala
 
 case class ReceiptHandle(value: String)
