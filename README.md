@@ -33,7 +33,7 @@ region = "us-west-2"
 then your code, like
 
 ```scala
-import com.github.juan62.sqscala._
+import com.github.yoskhdia.sqscala._
 
 val client = ConfiguredSqsClient()
 ```
@@ -49,7 +49,7 @@ Of course, you can instantiate AWS client directly, and set SqsClient object to 
 
 ```scala
 import com.amazonaws.regions.Regions
-import com.github.juan62.sqscala._
+import com.github.yoskhdia.sqscala._
 
 val client = SqsClient()
 // or
@@ -74,7 +74,7 @@ By default, sqscala has only a StringSerializer(Message Body <=> String).
 You can switch it on implicit parameter.
 
 ```scala
-import com.github.juan62.sqscala.Implicits.stringSerializer
+import com.github.yoskhdia.sqscala.Implicits.stringSerializer
 // or
 implicit val serializer = YourOriginalSerializer
 ```
