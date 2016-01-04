@@ -121,7 +121,7 @@ object SqsClient {
     * @return SQS client
     */
   def unsafe(credentialProvider: AWSCredentialsProvider = new DefaultAWSCredentialsProviderChain(),
-             regions: Regions = Regions.DEFAULT_REGION): SqsClient = {
+             regions: Regions = Regions.DEFAULT_REGION): SqsClient with UnsafeOps = {
     val awsClient = createAwsClient(credentialProvider, regions)
     unsafe(awsClient)
   }
@@ -132,7 +132,7 @@ object SqsClient {
     * @param awsClient AWS SQS client.
     * @return SQS client
     */
-  def unsafe(awsClient: AmazonSQSAsync): SqsClient = {
+  def unsafe(awsClient: AmazonSQSAsync): SqsClient with UnsafeOps = {
     new SqsClientImpl(awsClient) with UnsafeOps
   }
 
@@ -144,7 +144,7 @@ object SqsClient {
 
   private class SqsClientImpl(val awsClient: AmazonSQSAsync) extends SqsClient
 
-  private class SqsQueueImpl(val name: QueueName, val queueUrl: QueueUrl, protected val client: SqsClient) extends SqsQueue
+  private class SqsQueueImpl(val name: QueueName, val url: QueueUrl, protected val client: SqsClient) extends SqsQueue
 
   trait UnsafeOps {
     self: SqsClient =>
