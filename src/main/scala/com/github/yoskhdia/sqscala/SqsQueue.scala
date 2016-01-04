@@ -13,13 +13,13 @@ trait SqsQueue {
 
   def name: QueueName
 
-  protected def queueUrl: String
+  protected def queueUrl: QueueUrl
 
   protected def client: SqsClient
 
   def receive[T](waitTime: Option[FiniteDuration] = None, visibilityTimeout: Option[FiniteDuration] = None)(implicit serializer: MessageSerializer[T]): Future[Option[Message[T]]] = {
     val request = new ReceiveMessageRequest()
-      .withQueueUrl(queueUrl)
+      .withQueueUrl(queueUrl.simplified)
       .withMaxNumberOfMessages(1)
     waitTime.foreach(d => request.withWaitTimeSeconds(d.toSeconds.toInt))
     visibilityTimeout.foreach(d => request.withVisibilityTimeout(d.toSeconds.toInt))
@@ -47,7 +47,7 @@ trait SqsQueue {
 
   def send[T](message: T, delay: Option[FiniteDuration] = None, messageAttributes: Map[String, MessageAttributeValue] = Map.empty[String, MessageAttributeValue])(implicit serializer: MessageSerializer[T]): Future[MessageId] = {
     val request = new SendMessageRequest()
-      .withQueueUrl(queueUrl)
+      .withQueueUrl(queueUrl.simplified)
       .withMessageBody(serializer.serialize(message))
     messageAttributes.foreach { case (key, value) =>
       request.addMessageAttributesEntry(key, value)
@@ -65,7 +65,7 @@ trait SqsQueue {
 
   def delete(receiptHandle: ReceiptHandle): Future[Unit] = {
     val request = new DeleteMessageRequest()
-      .withQueueUrl(queueUrl)
+      .withQueueUrl(queueUrl.simplified)
       .withReceiptHandle(receiptHandle.value)
 
     val p = Promise[Unit]()

@@ -9,7 +9,7 @@ I wanted a more customizable interfaces.
 
 ```
 resolvers += "jitpack" at "https://jitpack.io"
-libraryDependencies += "com.github.yoskhdia" % "sqscala" % "1.0.2"
+libraryDependencies += "com.github.yoskhdia" % "sqscala" % "1.0.3"
 ```
 
 ## How to use
@@ -101,6 +101,18 @@ queue.receive().onSuccess {
       // ...
     }
 }
+```
+
+## Others
+
+* Directly instantiate the SQS queue objects from the URL.
+
+```scala
+import com.amazonaws.regions.Regions
+import com.github.yoskhdia.sqscala._
+
+val client = SqsClient.unsafe()
+val queue = client.queue(QueueName("foo"), "https://localhost:9324")
 ```
 
 ## Road map
