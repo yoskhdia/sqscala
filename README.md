@@ -103,6 +103,18 @@ queue.receive().onSuccess {
 }
 ```
 
+## Others
+
+* Directly instantiate the SQS queue objects from the URL.
+
+```scala
+import com.amazonaws.regions.Regions
+import com.github.yoskhdia.sqscala._
+
+val client = SqsClient.unsafe()
+val queue = client.queue(QueueName("foo"), "https://localhost:9324")
+```
+
 ## Road map
 
 1. support batch request.
