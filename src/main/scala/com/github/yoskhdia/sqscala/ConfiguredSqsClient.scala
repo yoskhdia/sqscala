@@ -19,6 +19,18 @@ object ConfiguredSqsClient {
   }
 
   def apply(sqsConfiguration: Config): SqsClient = {
+    SqsClient(createAwsClient(sqsConfiguration))
+  }
+
+  def unsafe(path: String): SqsClient = {
+    unsafe(ConfigFactory.load().readConfigOr(path, throw new ConfigurationNotFoundException(s"configuration is not found. $path")))
+  }
+
+  def unsafe(sqsConfiguration: Config): SqsClient = {
+    SqsClient.unsafe(createAwsClient(sqsConfiguration))
+  }
+
+  private def createAwsClient(sqsConfiguration: Config): AmazonSQSAsyncClient = {
     val sdkClient = new AmazonSQSAsyncClient(sdkConfig(sqsConfiguration))
 
     val region = sqsConfiguration.readStringOption("region")
@@ -32,7 +44,7 @@ object ConfiguredSqsClient {
       case _ => throw new ConfigurationNotFoundException("region or endpoint-url is not found.")
     }
 
-    SqsClient(sdkClient)
+    sdkClient
   }
 
   private def sdkConfig(sqsConfiguration: ConfigWrapper): ClientConfiguration = {
