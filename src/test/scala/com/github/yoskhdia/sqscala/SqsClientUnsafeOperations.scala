@@ -18,8 +18,8 @@ class SqsClientUnsafeOperations(specEnv: Env) extends Specification with Elastic
   "create queue by client.queue method" in { implicit ee: ExecutionEnv =>
     val queueName = QueueName("test4")
     val queue = client.queue(queueName, createIfNotExists = true)
-    client.queue(queueName, queue.queueUrl).queueUrl must_=== queue.queueUrl
-    client.queue(queueName, "http://localhost:9325/queue/test4").queueUrl must_=== queue.queueUrl
+    client.queue(queueName, queue.url).url must_=== queue.url
+    client.queue(queueName, "http://localhost:9325/queue/test4").url must_=== queue.url
     client.deleteQueue(queueName) must be_==(unit).await
   }
 }

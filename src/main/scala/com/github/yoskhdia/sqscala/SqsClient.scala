@@ -144,7 +144,7 @@ object SqsClient {
 
   private class SqsClientImpl(val awsClient: AmazonSQSAsync) extends SqsClient
 
-  private class SqsQueueImpl(val name: QueueName, val queueUrl: QueueUrl, protected val client: SqsClient) extends SqsQueue
+  private class SqsQueueImpl(val name: QueueName, val url: QueueUrl, protected val client: SqsClient) extends SqsQueue
 
   trait UnsafeOps {
     self: SqsClient =>
