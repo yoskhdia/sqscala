@@ -111,8 +111,8 @@ queue.receive().onSuccess {
 import com.amazonaws.regions.Regions
 import com.github.yoskhdia.sqscala._
 
-val client = SqsClient.unsafe()
-val queue = client.queue(QueueName("foo"), "https://localhost:9324")
+val client = SqsClient()
+val queue = client.unsafe.queue(QueueName("foo"), "https://localhost:9324")
 ```
 
 ## Road map
