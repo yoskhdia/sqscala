@@ -10,7 +10,6 @@ import com.typesafe.config.{Config, ConfigFactory}
 import scala.util.control.NonFatal
 
 object ConfiguredSqsClient {
-  import SqsClient._
 
   def apply(): SqsClient = {
     apply(ConfigFactory.load())
@@ -22,14 +21,6 @@ object ConfiguredSqsClient {
 
   def apply(sqsConfiguration: Config): SqsClient = {
     SqsClient(createAwsClient(sqsConfiguration))
-  }
-
-  def unsafe(path: String): SqsClient with UnsafeOps = {
-    unsafe(ConfigFactory.load().readConfigOr(path, throw new ConfigurationNotFoundException(s"configuration is not found. $path")))
-  }
-
-  def unsafe(sqsConfiguration: Config): SqsClient with UnsafeOps = {
-    SqsClient.unsafe(createAwsClient(sqsConfiguration))
   }
 
   private def createAwsClient(sqsConfiguration: Config): AmazonSQSAsyncClient = {

@@ -9,7 +9,7 @@ import org.specs2.specification.core.Env
 class SqsClientUnsafeOperations(specEnv: Env) extends Specification with ElasticMqContext with BeforeAfterAll {
   private[this] var client: SqsClient with UnsafeOps = _
 
-  override def beforeAll(): Unit = client = ConfiguredSqsClient.unsafe("aws.sqs")
+  override def beforeAll(): Unit = client = ConfiguredSqsClient("aws.sqs").unsafe
 
   override def afterAll(): Unit = client.shutdown()
 
