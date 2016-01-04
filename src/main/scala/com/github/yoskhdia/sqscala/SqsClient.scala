@@ -14,6 +14,10 @@ trait SqsClient {
 
   def awsClient: AmazonSQSAsync
 
+  def unsafe: SqsClient with UnsafeOps = {
+    new SqsClientWithUnsafeOpsImpl(awsClient)
+  }
+
   protected def getQueueUrl(queueName: QueueName, createIfNotExists: Boolean): QueueUrl = {
     val request = new GetQueueUrlRequest(queueName.simplified)
     QueueUrl(
@@ -102,49 +106,17 @@ object SqsClient {
     new SqsClientImpl(awsClient)
   }
 
-  /**
-    * apply SQS client that has unsafe operation methods.
-    *
-    * @param credentialProvider AWS credentials provider.
-    *                           Default AWS credentials provider chain that looks for credentials in this order:
-    *                           <ul>
-    *                           <li>Environment Variables -
-    *                           <code>AWS_ACCESS_KEY_ID</code> and <code>AWS_SECRET_ACCESS_KEY</code>
-    *                           (RECOMMENDED since they are recognized by all the AWS SDKs and CLI except for .NET),
-    *                           or <code>AWS_ACCESS_KEY</code> and <code>AWS_SECRET_KEY</code> (only recognized by Java SDK)
-    *                           </li>
-    *                           <li>Java System Properties - aws.accessKeyId and aws.secretKey</li>
-    *                           <li>Credential profiles file at the default location (~/.aws/credentials) shared by all AWS SDKs and the AWS CLI</li>
-    *                           <li>Instance profile credentials delivered through the Amazon EC2 metadata service</li>
-    *                           </ul>
-    * @param regions AWS regions.
-    * @return SQS client
-    */
-  def unsafe(credentialProvider: AWSCredentialsProvider = new DefaultAWSCredentialsProviderChain(),
-             regions: Regions = Regions.DEFAULT_REGION): SqsClient with UnsafeOps = {
-    val awsClient = createAwsClient(credentialProvider, regions)
-    unsafe(awsClient)
-  }
-
-  /**
-    * apply SQS client that has unsafe operation methods.
-    *
-    * @param awsClient AWS SQS client.
-    * @return SQS client
-    */
-  def unsafe(awsClient: AmazonSQSAsync): SqsClient with UnsafeOps = {
-    new SqsClientImpl(awsClient) with UnsafeOps
-  }
-
   private def createAwsClient(credentialProvider: AWSCredentialsProvider, regions: Regions) = {
     val awsClient = new AmazonSQSAsyncClient(credentialProvider)
     awsClient.setRegion(Region.getRegion(regions))
     awsClient
   }
 
-  private class SqsClientImpl(val awsClient: AmazonSQSAsync) extends SqsClient
+  private[sqscala] class SqsClientImpl(val awsClient: AmazonSQSAsync) extends SqsClient
 
-  private class SqsQueueImpl(val name: QueueName, val url: QueueUrl, protected val client: SqsClient) extends SqsQueue
+  private[sqscala] class SqsClientWithUnsafeOpsImpl(val awsClient: AmazonSQSAsync) extends SqsClient with UnsafeOps
+
+  private[sqscala] class SqsQueueImpl(val name: QueueName, val url: QueueUrl, protected val client: SqsClient) extends SqsQueue
 
   trait UnsafeOps {
     self: SqsClient =>
