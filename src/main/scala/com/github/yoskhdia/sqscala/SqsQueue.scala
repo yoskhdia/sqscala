@@ -13,7 +13,7 @@ trait SqsQueue {
 
   def name: QueueName
 
-  protected def queueUrl: QueueUrl
+  def queueUrl: QueueUrl
 
   protected def client: SqsClient
 
