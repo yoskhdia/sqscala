@@ -4,7 +4,7 @@ import org.specs2.mutable.Specification
 
 import scala.util.Try
 
-class SqsClient$Test extends Specification with ElasticMqContext {
+class SqsClient$Test extends Specification {
 
   "SqsClient$Test" should {
     System.setProperty("aws.accessKeyId", "dummy")

@@ -19,12 +19,22 @@ scalacOptions in Test ++= Seq("-Yrangepos")
 
 resolvers += "Typesafe Repo" at "http://repo.typesafe.com/typesafe/releases/"
 
-val specs2Version = "3.6.+"
+val specs2Version = "3.8.+"
 
 libraryDependencies ++= Seq(
   "com.amazonaws" % "aws-java-sdk-sqs" % "1.10.+",
   "com.typesafe" % "config" % "1.3.+",
   "org.specs2" %% "specs2-core" % specs2Version % "test",
-  "org.specs2" %% "specs2-mock" % specs2Version % "test",
-  "org.elasticmq" %% "elasticmq-rest-sqs" % "0.8.+" % "test"
+  "org.specs2" %% "specs2-mock" % specs2Version % "test"
 )
+
+// Test Options
+
+elasticMQVersion := "0.10.1"
+nodeAddressConf := NodeAddressConf(port = 9325)
+restSQSConf := RestSQSConf(bindPort = 9325)
+
+startElasticMQ <<= startElasticMQ.dependsOn(compile in Test)
+test in Test <<= (test in Test).dependsOn(startElasticMQ)
+testOptions in Test <+= elasticMQTestCleanup
+testOnly in Test <<= (testOnly in Test).dependsOn(startElasticMQ)
