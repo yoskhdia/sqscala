@@ -10,9 +10,11 @@ I wanted a more customizable interfaces.
 
 ## Installation
 
+supports Scala 2.11.x, 2.12.x
+
 ```
 resolvers += "jitpack" at "https://jitpack.io"
-libraryDependencies += "com.github.yoskhdia" % "sqscala" % <<check latest version from jitpack.>>
+libraryDependencies += "com.github.yoskhdia" %% "sqscala" % <<check latest version from jitpack.>>
 ```
 
 ## How to use
