@@ -22,7 +22,7 @@ resolvers += "Typesafe Repo" at "http://repo.typesafe.com/typesafe/releases/"
 val specs2Version = "3.8.+"
 
 libraryDependencies ++= Seq(
-  "com.amazonaws" % "aws-java-sdk-sqs" % "1.10.+",
+  "com.amazonaws" % "aws-java-sdk-sqs" % "1.11.+",
   "com.typesafe" % "config" % "1.3.+",
   "org.specs2" %% "specs2-core" % specs2Version % "test",
   "org.specs2" %% "specs2-mock" % specs2Version % "test"

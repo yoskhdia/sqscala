@@ -69,10 +69,10 @@ trait SqsQueue {
       .withReceiptHandle(receiptHandle.value)
 
     val p = Promise[Unit]()
-    client.awsClient.deleteMessageAsync(request, new AsyncHandler[DeleteMessageRequest, Void] {
+    client.awsClient.deleteMessageAsync(request, new AsyncHandler[DeleteMessageRequest, DeleteMessageResult] {
       override def onError(exception: Exception): Unit = p.failure(exception)
 
-      override def onSuccess(request: DeleteMessageRequest, result: Void): Unit = p.success(Unit)
+      override def onSuccess(request: DeleteMessageRequest, result: DeleteMessageResult): Unit = p.success(Unit)
     })
     p.future
   }
