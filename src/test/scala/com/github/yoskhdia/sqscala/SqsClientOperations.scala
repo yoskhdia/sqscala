@@ -7,6 +7,7 @@ import org.specs2.specification.BeforeAfterAll
 import org.specs2.specification.core.Env
 
 import scala.util.Try
+import scala.concurrent.duration._
 
 class SqsClientOperations(specEnv: Env) extends Specification with BeforeAfterAll {
   private[this] var client: SqsClient = _
@@ -25,7 +26,7 @@ class SqsClientOperations(specEnv: Env) extends Specification with BeforeAfterAl
 
   "create queue by client.createQueue method" in { implicit ee: ExecutionEnv =>
     val queueName = QueueName("test2")
-    client.createQueue(queueName) must be_==(unit).await
+    client.createQueue(queueName) must be_==(unit).awaitFor(2.seconds) // sometimes create queue is slow.
     client.deleteQueue(queueName) must be_==(unit).await
   }
 
