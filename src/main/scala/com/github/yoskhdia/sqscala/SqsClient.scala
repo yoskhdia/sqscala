@@ -130,7 +130,7 @@ object SqsClient {
       * @return SQS queue
       */
     def queue(queueName: QueueName, queueUrl: String): SqsQueue = {
-      val url = QueueUrl(queueUrl, verifyFormat = true).fold(t => throw t, u => u)
+      val url = QueueUrl.parse(queueUrl, verifyFormat = true).get // throw exception if failed
       queue(queueName, url)
     }
 

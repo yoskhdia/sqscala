@@ -2,6 +2,8 @@ package com.github.yoskhdia.sqscala
 
 import java.net.URL
 
+import scala.util.Try
+
 case class QueueUrl(simplified: String) {
 
   def toUrl: URL = {
@@ -11,12 +13,10 @@ case class QueueUrl(simplified: String) {
 
 object QueueUrl {
 
-  def apply(simplified: String, verifyFormat: Boolean): Either[Throwable, QueueUrl] = {
-    try {
+  def parse(simplified: String, verifyFormat: Boolean): Try[QueueUrl] = {
+    Try {
       new URL(simplified)
-      Right(QueueUrl(simplified))
-    } catch {
-      case t: Throwable => Left(t)
+      QueueUrl(simplified)
     }
   }
 }
