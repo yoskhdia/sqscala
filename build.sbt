@@ -39,4 +39,4 @@ restSQSConf := RestSQSConf(bindPort = 9325)
 startElasticMQ := startElasticMQ.dependsOn(compile in Test).value
 test in Test := (test in Test).dependsOn(startElasticMQ).value
 testOptions in Test += elasticMQTestCleanup.value
-testOnly in Test := (testOnly in Test).dependsOn(startElasticMQ).value
+testOnly in Test := (testOnly in Test).dependsOn(startElasticMQ).evaluated
