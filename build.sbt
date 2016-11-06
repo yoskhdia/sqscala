@@ -6,7 +6,7 @@ name := "sqscala"
 
 version := "1.0.7-SNAPSHOT"
 
-scalaVersion := "2.11.8"
+scalaVersion := "2.12.0"
 
 crossScalaVersions := Seq("2.11.8", "2.12.0")
 
