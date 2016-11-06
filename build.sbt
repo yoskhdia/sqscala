@@ -36,7 +36,7 @@ elasticMQVersion := "0.10.1"
 nodeAddressConf := NodeAddressConf(port = 9325)
 restSQSConf := RestSQSConf(bindPort = 9325)
 
-startElasticMQ <<= startElasticMQ.dependsOn(compile in Test)
-test in Test <<= (test in Test).dependsOn(startElasticMQ)
-testOptions in Test <+= elasticMQTestCleanup
-testOnly in Test <<= (testOnly in Test).dependsOn(startElasticMQ)
+startElasticMQ := startElasticMQ.dependsOn(compile in Test).value
+test in Test := (test in Test).dependsOn(startElasticMQ).value
+testOptions in Test += elasticMQTestCleanup.value
+testOnly in Test := (testOnly in Test).dependsOn(startElasticMQ).evaluated
