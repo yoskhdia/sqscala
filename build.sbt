@@ -4,9 +4,11 @@ licenses +=("MIT", url("http://opensource.org/licenses/MIT"))
 
 name := "sqscala"
 
-version := "1.0.6"
+version := "1.0.7-SNAPSHOT"
 
-scalaVersion := "2.11.7"
+scalaVersion := "2.11.8"
+
+crossScalaVersions := Seq("2.11.8", "2.12.0")
 
 scalacOptions in GlobalScope in Compile := Seq(
   "-unchecked", "-deprecation", "-feature",
