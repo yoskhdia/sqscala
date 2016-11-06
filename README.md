@@ -1,4 +1,7 @@
 # sqscala
+
+[![Release](https://jitpack.io/v/yoskhdia/sqscala.svg)](https://jitpack.io/#yoskhdia/sqscala)
+
 simple AWS SQS client for Scala.
 
 This library, has been inspired by [com.kifi.franz](https://github.com/kifi/franz).
@@ -9,7 +12,7 @@ I wanted a more customizable interfaces.
 
 ```
 resolvers += "jitpack" at "https://jitpack.io"
-libraryDependencies += "com.github.yoskhdia" % "sqscala" % "1.0.6"
+libraryDependencies += "com.github.yoskhdia" % "sqscala" % <<check latest version from jitpack.>>
 ```
 
 ## How to use

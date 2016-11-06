@@ -5,7 +5,7 @@ import org.specs2.mutable.Specification
 
 import scala.util.Try
 
-class ConfiguredSqsClient$Test extends Specification with ElasticMqContext {
+class ConfiguredSqsClient$Test extends Specification {
 
   "ConfiguredSqsClient$Test" should {
     "legal configuration" >> {

@@ -7,7 +7,7 @@ import org.specs2.specification.BeforeAfterAll
 import scala.concurrent.Await
 import scala.concurrent.duration._
 
-class SqsQueueTest extends Specification with ElasticMqContext with BeforeAfterAll {
+class SqsQueueTest extends Specification with BeforeAfterAll {
   private[this] var client: SqsClient = _
   private[this] lazy val queue: SqsQueue = client.queue(QueueName("test"), createIfNotExists = true)
 

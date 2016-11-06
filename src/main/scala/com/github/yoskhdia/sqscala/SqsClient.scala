@@ -47,10 +47,10 @@ trait SqsClient {
       .withQueueUrl(getQueueUrl(queueName, createIfNotExists = false).simplified)
 
     val p = Promise[Unit]()
-    awsClient.deleteQueueAsync(request, new AsyncHandler[DeleteQueueRequest, Void] {
+    awsClient.deleteQueueAsync(request, new AsyncHandler[DeleteQueueRequest, DeleteQueueResult] {
       override def onError(exception: Exception): Unit = p.failure(exception)
 
-      override def onSuccess(request: DeleteQueueRequest, result: Void): Unit = p.success(Unit)
+      override def onSuccess(request: DeleteQueueRequest, result: DeleteQueueResult): Unit = p.success(Unit)
     })
     p.future
   }
@@ -130,7 +130,7 @@ object SqsClient {
       * @return SQS queue
       */
     def queue(queueName: QueueName, queueUrl: String): SqsQueue = {
-      val url = QueueUrl(queueUrl, verifyFormat = true).fold(t => throw t, u => u)
+      val url = QueueUrl.parse(queueUrl, verifyFormat = true).get // throw exception if failed
       queue(queueName, url)
     }
 
