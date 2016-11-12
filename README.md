@@ -14,8 +14,7 @@ supports Scala 2.11.x, 2.12.x
 
 ```
 resolvers += "jitpack" at "https://jitpack.io"
-libraryDependencies += "com.github.yoskhdia" % "sqscala" % <<check latest version from jitpack.>>   // Scala 2.12
-libraryDependencies += "com.github.yoskhdia" %% "sqscala" % <<check latest version from jitpack.>>  // Scala 2.11
+libraryDependencies += "com.github.yoskhdia" %% "sqscala" % <<check the latest version from jitpack.>>
 ```
 
 ## How to use
